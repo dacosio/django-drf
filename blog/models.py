@@ -6,6 +6,9 @@ from django.utils import timezone
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name_plural = 'categories'
+
     def __str__(self):
         return self.name
 
@@ -30,7 +33,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=250, unique_for_date='published')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     status = models.CharField(max_length=10, choices=options, default='published')
-    object = models.Manager()  # default manager
+    objects = models.Manager()  # default manager
     postobjects = PostObjects()  # custom manager
 
     def __str__(self):
